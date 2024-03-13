@@ -8,7 +8,7 @@
 |2|Seulbin|0.7456|
 |3|Suinne|N/A|
 
-#### Track2: Dubukki
+#### Track2: Ddubuki
 |#|Name|Accuracy|
 |:---:|:---:|:---:|
 |1|Seulbin|0.8571|
