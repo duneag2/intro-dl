@@ -12,5 +12,5 @@
 |#|Name|Accuracy|
 |:---:|:---:|:---:|
 |1|Seulbin|0.8571|
-|2|Subin|N/A|
+|1|Subin|0.8571|
 |3|Suinne|N/A|
