@@ -1,1 +1,66 @@
+Question 1. How can I move to the directory I want using the library os & Linux Command?
+I'd like to move to the directory name '/content/sample_data'.
+
+
+Answer 1. 
+
+import os
+
+# Define the directory path
+directory_path = '/content/sample_data'
+
+# Change the current working directory to the desired directory
+os.chdir(directory_path)
+
+# Print the current working directory to verify the change
+print("Current directory:", os.getcwd())
+
+
+///
+
+
+Question 2. Please write a code that copies new.txt with a file name new3.txt.
+Directory: /content/drive/MyDrive/intro-dl/afhq/new_folder
+
+
+
+Answer 2. 
+
+
+import shutil
+import os
+
+# Change directory to the target location
+os.chdir('/content/drive/MyDrive/intro-dl/afhq/new_folder')
+
+# Define source and destination file paths
+source_file = 'new.txt'
+destination_file = 'new3.txt'
+
+try:
+    # Copy the file from source to destination
+    shutil.copy(source_file, destination_file)
+    print(f"File '{source_file}' copied successfully to '{destination_file}'.")
+
+
+///
+
+
+Question 3. Compute L1/L2 Norm between matrix1 and matrix2 above.
+Hint: https://pytorch.org/docs/stable/generated/torch.linalg.norm.html
+
+
+Answer 3. 
+
+
+
+
+
+
+
+
+
+
+
+
 
