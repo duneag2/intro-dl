@@ -67,7 +67,246 @@ print("Cosine Similarity between matrix1 and matrix2:", cos_sim.item())
 
 
 
-
+ "## Simple MLP\n",
+        "\n",
+        "*    Reference. https://github.com/Justin-A/DeepLearning101/blob/master/2-1_MNIST_MLP.ipynb"
+      ],
+      "metadata": {
+        "id": "GDck4fScEtI9"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "''' 1. Module Import '''\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "import torch\n",
+        "import torch.nn as nn\n",
+        "import torch.nn.functional as F\n",
+        "from torchvision import transforms, datasets"
+      ],
+      "metadata": {
+        "id": "n3uRuWgZEwcy"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "if torch.cuda.is_available():\n",
+        "    DEVICE = torch.device('cuda')\n",
+        "else:\n",
+        "    DEVICE = torch.device('cpu')\n",
+        "\n",
+        "print('Using PyTorch version:', torch.__version__, ' Device:', DEVICE)"
+      ],
+      "metadata": {
+        "id": "zLAkO1Jugf34"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "BATCH_SIZE = 32\n",
+        "EPOCHS = 10"
+      ],
+      "metadata": {
+        "id": "wtSUJeMVggF0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "''' 3. MNIST Download (Train set, Test set split) '''\n",
+        "train_dataset = datasets.MNIST(root = \"../data/MNIST\",\n",
+        "                               train = True,\n",
+        "                               download = True,\n",
+        "                               transform = transforms.ToTensor())\n",
+        "\n",
+        "test_dataset = datasets.MNIST(root = \"../data/MNIST\",\n",
+        "                              train = False,\n",
+        "                              transform = transforms.ToTensor())\n",
+        "\n",
+        "train_loader = torch.utils.data.DataLoader(dataset = train_dataset,\n",
+        "                                           batch_size = BATCH_SIZE,\n",
+        "                                           shuffle = True)\n",
+        "\n",
+        "test_loader = torch.utils.data.DataLoader(dataset = test_dataset,\n",
+        "                                          batch_size = BATCH_SIZE,\n",
+        "                                          shuffle = False)"
+      ],
+      "metadata": {
+        "id": "7LsuDi6TggII"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "## Quick Question\n",
+        "# What is MNIST?\n",
+        "# Google it and write the answer"
+      ],
+      "metadata": {
+        "id": "bhY_d3YcggKf"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for (X_train, y_train) in train_loader:\n",
+        "    print('X_train:', X_train.size(), 'type:', X_train.type())\n",
+        "    print('y_train:', y_train.size(), 'type:', y_train.type())\n",
+        "    break"
+      ],
+      "metadata": {
+        "id": "o8LChiv3ggNd"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pltsize = 1\n",
+        "plt.figure(figsize=(10 * pltsize, pltsize))\n",
+        "for i in range(10):\n",
+        "    plt.subplot(1, 10, i + 1)\n",
+        "    plt.axis('off')\n",
+        "    plt.imshow(X_train[i, :, :, :].numpy().reshape(28, 28), cmap = \"gray_r\")\n",
+        "    plt.title('Class: ' + str(y_train[i].item()))"
+      ],
+      "metadata": {
+        "id": "dY0Ypc0fggPx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "''' Multi Layer Perceptron '''\n",
+        "class Net(nn.Module):\n",
+        "    def __init__(self):\n",
+        "        super(Net, self).__init__()\n",
+        "        self.fc1 = nn.Linear(28 * 28, 512)\n",
+        "        self.fc2 = nn.Linear(512, 256)\n",
+        "        self.fc3 = nn.Linear(256, 10)\n",
+        "\n",
+        "    def forward(self, x):\n",
+        "        x = x.view(-1, 28 * 28)\n",
+        "        x = self.fc1(x)\n",
+        "        x = F.sigmoid(x)\n",
+        "        x = self.fc2(x)\n",
+        "        x = F.sigmoid(x)\n",
+        "        x = self.fc3(x)\n",
+        "        x = F.log_softmax(x, dim = 1)\n",
+        "        return x"
+      ],
+      "metadata": {
+        "id": "x7WkQj2mggSD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "''' Optimizer, Objective Function '''\n",
+        "model = Net().to(DEVICE)\n",
+        "optimizer = torch.optim.SGD(model.parameters(), lr = 0.01, momentum = 0.5)\n",
+        "criterion = nn.CrossEntropyLoss()\n",
+        "\n",
+        "print(model)"
+      ],
+      "metadata": {
+        "id": "dwRqonzKtd1O"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def train(model, train_loader, optimizer, log_interval):\n",
+        "    model.train()\n",
+        "    for batch_idx, (image, label) in enumerate(train_loader):\n",
+        "        image = image.to(DEVICE)\n",
+        "        label = label.to(DEVICE)\n",
+        "        optimizer.zero_grad()\n",
+        "        output = model(image)\n",
+        "        loss = criterion(output, label)\n",
+        "        loss.backward()\n",
+        "        optimizer.step()\n",
+        "\n",
+        "        if batch_idx % log_interval == 0:\n",
+        "            print(\"Train Epoch: {} [{}/{} ({:.0f}%)]\\tTrain Loss: {:.6f}\".format(\n",
+        "                epoch, batch_idx * len(image),\n",
+        "                len(train_loader.dataset), 100. * batch_idx / len(train_loader),\n",
+        "                loss.item()))"
+      ],
+      "metadata": {
+        "id": "p_LnCyyftl88"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "def evaluate(model, test_loader):\n",
+        "    model.eval()\n",
+        "    test_loss = 0\n",
+        "    correct = 0\n",
+        "\n",
+        "    with torch.no_grad():\n",
+        "        for image, label in test_loader:\n",
+        "            image = image.to(DEVICE)\n",
+        "            label = label.to(DEVICE)\n",
+        "            output = model(image)\n",
+        "            test_loss += criterion(output, label).item()\n",
+        "            prediction = output.max(1, keepdim = True)[1]\n",
+        "            correct += prediction.eq(label.view_as(prediction)).sum().item()\n",
+        "\n",
+        "    test_loss /= (len(test_loader.dataset) / BATCH_SIZE)\n",
+        "    test_accuracy = 100. * correct / len(test_loader.dataset)\n",
+        "    return test_loss, test_accuracy"
+      ],
+      "metadata": {
+        "id": "psTeTnRmtl_I"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "for epoch in range(1, EPOCHS + 1):\n",
+        "    train(model, train_loader, optimizer, log_interval = 200)\n",
+        "    test_loss, test_accuracy = evaluate(model, test_loader)\n",
+        "    print(\"\\n[EPOCH: {}], \\tTest Loss: {:.4f}, \\tTest Accuracy: {:.2f} % \\n\".format(\n",
+        "        epoch, test_loss, test_accuracy))"
+      ],
+      "metadata": {
+        "id": "rGShY7RNRMme"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Question 4. Please write a line-by-line explanation of the code above. (Simple MLP only)\n",
 
 
 
