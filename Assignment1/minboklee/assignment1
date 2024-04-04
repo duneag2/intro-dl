@@ -6,14 +6,10 @@ Answer 1.
 
 import os
 
-# Define the directory path
 directory_path = '/content/sample_data'
 
-# Change the current working directory to the desired directory
 os.chdir(directory_path)
 
-# Print the current working directory to verify the change
-print("Current directory:", os.getcwd())
 
 
 ///
@@ -33,14 +29,10 @@ import os
 # Change directory to the target location
 os.chdir('/content/drive/MyDrive/intro-dl/afhq/new_folder')
 
-# Define source and destination file paths
 source_file = 'new.txt'
 destination_file = 'new3.txt'
 
-try:
-    # Copy the file from source to destination
-    shutil.copy(source_file, destination_file)
-    print(f"File '{source_file}' copied successfully to '{destination_file}'.")
+shutil.copy(source_file, destination_file)
 
 
 ///
@@ -52,7 +44,26 @@ Hint: https://pytorch.org/docs/stable/generated/torch.linalg.norm.html
 
 Answer 3. 
 
+import torch
+import torch.nn.functional as F
 
+matrix1 = torch.tensor([[1., 2.], [3., 4.]])
+matrix2 = torch.tensor([[5., 6.], [7., 8.]])
+
+# L1 norm
+l1_norm = torch.linalg.norm(matrix1 - matrix2, ord=1)
+print("L1 Norm between matrix1 and matrix2:", l1_norm.item())
+
+# L2 norm
+l2_norm = torch.linalg.norm(matrix1 - matrix2, ord=2)
+print("L2 Norm between matrix1 and matrix2:", l2_norm.item())
+
+
+
+
+# cosine similarity (with flattening the matrices)
+cos_sim = F.cosine_similarity(matrix1.flatten(), matrix2.flatten(), dim=0)
+print("Cosine Similarity between matrix1 and matrix2:", cos_sim.item())
 
 
 
