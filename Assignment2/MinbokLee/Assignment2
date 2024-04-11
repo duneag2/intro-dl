@@ -127,7 +127,24 @@ print("Sorted in decreasing order:", arr_sorted_desc)
 
 
 
-(1)
+alpha: This parameter controls the transparency of the points. A value of 0.0 means fully transparent (invisible), while 1.0 means fully opaque (visible). 
+
+
+cmap: Short for "colormap," this parameter specifies the color map to use when coloring the points based on a third variable. 
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+np.random.seed(0)
+
+n = 20
+x = np.random.rand(n)
+y = np.random.rand(n)
+
+plt.scatter(x, y, alpha=0.1, cmap='Spectral') ## alpha = 0.5 ==> alpha = 0.1 
+plt.colorbar()
+plt.show()
 
 
 
@@ -153,4 +170,4 @@ print("Sorted in decreasing order:", arr_sorted_desc)
 
 
 
-///
+
