@@ -1,4 +1,154 @@
-///
+
+###    QUESTION 1.
+
+
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+
+
+##    This section imports the necessary libraries numpy and matplotlib.pyplot. %matplotlib inline is a magic command for Jupyter notebooks that allows plots to be displayed inline.
+
+def make_linear(w=0.5, b=0.8, size=50, noise=1.0):
+    x = np.random.rand(size)
+    y = w * x + b
+    noise = np.random.uniform(-abs(noise), abs(noise), size=y.shape)
+    yy = y + noise
+    plt.figure(figsize=(10, 7))
+    plt.plot(x, y, color='r', label=f'y = {w}*x + {b}')
+    plt.scatter(x, yy, label='data')
+    plt.legend(fontsize=20)
+    plt.show()
+    print(f'w: {w}, b: {b}')
+    return x, yy
+
+
+##    This is a function make_linear that generates a set of linear data points. It takes parameters w (slope), b (intercept), size (number of data points), and noise (amount of noise to add to the data). It generates random x values, calculates y values using the linear equation y = w * x + b, adds random noise to y, plots the data using matplotlib, and returns the generated x and y values.
+
+x, y = make_linear(w=0.3, b=0.5, size=100, noise=0.01)
+
+##    This line calls the make_linear function with specific parameters to generate linear data (w=0.3, b=0.5, size=100, noise=0.01) and assigns the returned x and y values.
+
+
+y[5] = 0.75
+y[10] = 0.75
+plt.figure(figsize=(10, 7))
+plt.scatter(x, y)
+plt.show()
+
+##    These lines intentionally introduce outliers to the y data by changing the values at index 5 and 10. Then it plots the scatter plot of x and y.
+
+
+w = np.random.uniform(low=-1.0, high=1.0)
+b = np.random.uniform(low=-1.0, high=1.0)
+y_hat = w * x + b
+error = (y_hat - y) ** 2
+
+
+##    Randomly initializes w and b, calculates y_hat (predicted y values) using these random parameters, and computes the squared error between predicted y values (y_hat) and actual y values (y).
+
+
+num_epoch = 5000
+learning_rate = 0.5
+
+
+##    Sets the number of epochs (iterations) for training and the learning rate for gradient descent.
+
+
+
+errors = []
+w = np.random.uniform(low=-1.0, high=1.0)
+b = np.random.uniform(low=-1.0, high=1.0)
+for epoch in range(num_epoch):
+    y_hat = x * w + b
+    error = ((y_hat - y)**2).mean()
+    if error < 0.0005:
+        break
+    w = w - learning_rate * ((y_hat - y) * x).mean()
+    b = b - learning_rate * (y_hat - y).mean()
+    errors.append(error)
+    if epoch % 5 == 0:
+        print("{0:2} w = {1:.5f}, b = {2:.5f} error = {3:.5f}".format(epoch, w, b, error))
+print("----" * 15)
+print("{0:2} w = {1:.1f}, b = {2:.1f} error = {3:.5f}".format(epoch, w, b, error))
+
+
+##    This loop performs gradient descent to optimize w and b parameters to minimize the error between predicted y values (y_hat) and actual y values (y). 
+##    It iterates for a maximum of num_epoch times or until the error falls below a threshold of 0.0005. 
+
+##    In each iteration, it updates w and b using the gradient descent algorithm and calculates the mean squared error. 
+##    It prints out the progress every 5 epochs. Finally, it prints the optimized w, b, and the final error.
+
+
+
+
+###    QUESTION 2. 
+
+
+
+import numpy as np
+
+# Sample vector
+arr = np.array([5, 2, 3, 4, 6])
+
+# Get the indices that would sort the array in increasing order
+sorted_indices = np.argsort(arr)
+
+
+
+# Reverse the indices to get the decreasing order
+sorted_indices_desc = sorted_indices[::-1]
+
+# Use the sorted indices to reorder the array
+arr_sorted_desc = arr[sorted_indices_desc]
+
+print("Sorted in decreasing order:", arr_sorted_desc)
+
+##    reference: The numpy.argsort() function returns the indices that would sort an array. 
+##    It does not sort the array itself, but it gives you the indices that would sort the array. 
+##    You can specify the axis along which to sort and the sorting algorithm to use.
+
+
+##    
+
+
+
+
+###    QUESTION 3.
+
+
+#(1) What is alpha and cmap above? Google it and write the answer.
+#(2) Write and execute a code that has alpha=0.1. Can you see the difference?
+#(3) Check the type of cmap and run the code that changed the type of cmap.
+
+
+
+(1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
