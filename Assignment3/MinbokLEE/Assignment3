@@ -1,1 +1,8 @@
+Question 1:
+
+
+os.path.join function is used to specify directory within plt.imread function, which reads -
+the image file and returns into NumPy arry.
+
+
 
