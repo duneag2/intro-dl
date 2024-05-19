@@ -1,5 +1,5 @@
 
-## Intentionally making 1 outlier -> Q. 왜 2개가 아니라 1개의 outlier인걸까?
+#Intentionally making 1 outlier -> Q. 왜 2개가 아니라 1개의 outlier인걸까?
 A. 2개의 outlier가 맞습니다. 두 점에 대해서 인위적으로 y값을 설정하여 범위를 벗어날 수 있도록 하였기 때문입니다. 기존에 제공한 파일에서는 운이 좋게 0.75에 가까운 포인트를 조작했기 때문에 1개로 보였던 것입니다.
 
 
