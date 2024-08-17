@@ -13,6 +13,7 @@
 |1|Chanhaeng|0.91|
 
 
+--------------------------
 
 #### Track1: K-food
 |#|Name|Accuracy|
