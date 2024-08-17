@@ -2,6 +2,18 @@
 ### Leaderboard
 
 #### Track1: K-food
+|#|Name|AUC score|
+|:---:|:---:|:---:|
+|1|Hyelim|0.74|
+|2|Chanhaeng|0.62|
+
+#### Track2: Ddubuki
+|#|Name|AUC score|
+|1|Chanhaeng|0.91|
+
+
+
+#### Track1: K-food
 |#|Name|Accuracy|
 |:---:|:---:|:---:|
 |1|Subin|0.7939|
