@@ -8,7 +8,7 @@
 |2|Chanhaeng|0.62|
 
 #### Track2: Ddubuki
-|#|Name|Accuracy|
+|#|Name|AUC score|
 |:---:|:---:|:---:|
 |1|Chanhaeng|0.91|
 
