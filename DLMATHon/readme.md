@@ -4,13 +4,16 @@
 #### Track1: K-food
 |#|Name|AUC score|
 |:---:|:---:|:---:|
-|1|Hyelim|0.74|
-|2|Chanhaeng|0.62|
+|1|Donggun|0.94|
+|2|Hyelim|0.74|
+|3|Chanhaeng|0.62|
 
 #### Track2: Ddubuki
 |#|Name|AUC score|
 |:---:|:---:|:---:|
-|1|Chanhaeng|0.91|
+|1|Donggun|0.98|
+|2|Hyelim|0.92|
+|3|Chanhaeng|0.91|
 
 
 --------------------------
