@@ -32,9 +32,11 @@ matrix2 = torch.tensor([[5., 6.], [7., 8.]])
 matrix = matrix1 - matrix2
 
 L1 = torch.linalg.norm(matrix, ord = 1)
+
 print(L1)
 
 L2 = torch.linalg.norm(matrix, ord=2)
+
 print(L2)
 
 ######################################################################
