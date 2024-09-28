@@ -11,6 +11,7 @@ os.chdir('/content/sample_data')
 #Answer of Question 2.
 
 src = '/content/drive/MyDrive/intro-dl/afhq/new_folder/new.txt'
+
 dst = '/content/drive/MyDrive/intro-dl/afhq/new_folder/new3.txt'
 
 shutil.copy(scr, dst)
@@ -25,7 +26,9 @@ import torch
 import torch.nn.functional as F
 
 matrix1 = torch.tensor([[1., 2.], [3., 4.]])
+
 matrix2 = torch.tensor([[5., 6.], [7., 8.]])
+
 matrix = matrix1 - matrix2
 
 L1 = torch.linalg.norm(matrix, ord = 1)
